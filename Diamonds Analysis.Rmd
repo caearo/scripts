@@ -1,0 +1,34 @@
+---
+title: "Diamonds Analysis"
+author: "林前"
+date: "2017/11/8"
+output: html_document
+---
+
+### Scatterplot Review
+
+Carat and Price.
+```{r}
+data(diamonds)
+library(ggplot2)
+
+ggplot(data = diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  coord_cartesian(xlim = c(0, quantile(diamonds$carat, .99)),
+                  ylim = c(0, quantile(diamonds$price, .99))) +
+  stat_smooth(method = 'lm')
+```
+
+### Ggpair Function
+```{r}
+library(ggplot2)
+library(GGally)
+library(scales)
+library(memisc)
+
+# Sample.
+set.seed(20171108)
+diamond_samp <- diamonds[sample(1:length(diamonds$price), 10000),]
+ggpairs(diamond_samp)
+```
+
